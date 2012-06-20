@@ -22,12 +22,26 @@ require 'google_play_search'
 
 gps = GooglePlaySearch::Search.new
 
-
-# it will return app list
+# it will return app arrary. default is first page
+# default every page returns 24 apps
 gps.search("bird")
+
+# you can search next page app arrary 
+gps.next_page # current page will be change to 2
 
 # you also can search the page what you want 
 gps.search("bird", :page => 3)
+gps.next_page # current page will be change to 4
+
+# you can see current page (return page numer)
+p gps.current_page # 4
+
+# you can see current_page (return page numer)
+p gps.kewyword # "bird"
+
+# if you search another keyword use same instance
+gps.search("tiger") # current page will be change to default 1
+
 ```
 
 ###Configuring
