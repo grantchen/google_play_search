@@ -12,7 +12,7 @@ Or with Bundler in your Gemfile.
 gem 'google_play_search'
 ```
 
-### Useage
+### Usage
 
 ```ruby
 # only 1.8.7 need this
