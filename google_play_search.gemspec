@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|  
   s.name        = 'google_play_search'  
-  s.version     = '0.0.1'  
+  s.version     = '0.0.2'  
   s.date        = '2012-06-03'  
   s.summary     = "google play market search"  
   s.description = "google play market search gem"  
@@ -11,5 +11,5 @@ Gem::Specification.new do |s|
 
   s.files         = Dir['lib/**/*.rb'] + Dir['*.rb']
   s.homepage    =  
-    'http://rubygems.org/gems/google_play_app_search'  
+    'https://github.com/kucss/google_play_search'  
 end 
