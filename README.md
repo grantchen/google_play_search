@@ -46,11 +46,16 @@ gps.search("tiger") # current page will be change to default 1
 
 ###Configuring
 ```ruby
-gps = GooglePlaySearch::Search.new(:language=>"en", :category=>"apps", :per_page_num=>10)
+gps = GooglePlaySearch::Search.new(:language=>"en", :category=>"apps", :per_page_num=>10, 
+                                   :price => 0, :safe_search => 0, :sort_by => 1)
 ```
 * `language`: search language. Default:en. (can be "en", "zh_CN", "ja", "ko", "fr") 
 * `category`: search category. Default:apps. (can be "apps")
 * `per_page_num`: app numbers in every page of search result. Default: 24
+* `price`: app price. Default: "0" - All Price. Can be "1" - Free App. "2" -  need paid App.
+* `safe_search`: search safe mode. Default: "0" - search safe off. Can be "1" - low safe mode. 
+                 "2" - moderate safe mode. "3" - strict safe mode .
+* `sort_by`: app list sort by. Default: "1" - sort by Relevance. Can be "0" - sort by popularity
 
 ###Search Result
 ```ruby
@@ -71,12 +76,19 @@ p app_list[0].developer
 # android app category (like "Arcade & Action")
 p app_list[0].category
 
-# android app logo url (like "https://lh3.ggpht.com/6c2H-PDJk5Sax4WaIiTQgovdqvfNZZbtoQyktOgd_uW-Hh09idFdej14LPqalvVz9LA=w78-h78")
+# android app logo url (like 
+# "https://lh3.ggpht.com/6c2H-PDJk5Sax4WaIiTQgovdqvfNZZbtoQyktOgd_uW-Hh09idFdej14LPqalvVz9LA=w78-h78")
 p app_list[0].logo_url
 
 # android app short description
-# (like "Use the unique powers of the Angry Birds to destroy the greedy pigs' fortresses! The survival of the Angry 
-#  Birds is at stake. Dish out revenge on the greedy pigs who s...")
+# (like "Use the unique powers of the Angry Birds to destroy the greedy pigs' fortresses! 
+#  The survival of the Angry Birds is at stake. Dish out revenge on the greedy pigs who s...")
 p app_list[0].short_description
+
+# android app average review point (like "4.6")
+p app_list[0].point 
+
+# android app average review count (like "12921")
+p app_list[0].reviews 
 
 ```
