@@ -50,7 +50,8 @@ gps = GooglePlaySearch::Search.new(:language=>"en", :category=>"apps", :per_page
                                    :price => 0, :safe_search => 0, :sort_by => 1)
 ```
 * `language`: search language. Default:en. (can be "en", "zh_CN", "ja", "ko", "fr") 
-* `category`: search category. Default:apps. (can be "apps")
+* `category`: search category. Default:apps. (can be "apps","music","movies","books","magazines"). 
+              some country don't support "music","movies","books","magazines" yet.
 * `per_page_num`: app numbers in every page of search result. Default: 24
 * `price`: app price. Default: "0" - All Price. Can be "1" - Free App. "2" -  need paid App.
 * `safe_search`: search safe mode. Default: "0" - search safe off. Can be "1" - low safe mode. 
