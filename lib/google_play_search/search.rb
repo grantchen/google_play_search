@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'nokogiri'
 require 'open3'
+require 'cgi'
 require File.expand_path(File.dirname(__FILE__) + '/app_parser')
 
 module GooglePlaySearch
@@ -24,7 +25,7 @@ module GooglePlaySearch
 		end
 		
 		def search(keyword, options={})
-      @current_page = options[:page].nil? ? 1 : options[:page]
+                  @current_page = options[:page].nil? ? 1 : options[:page]
 		  @keyword = keyword
 		  stdin, stdout, stderr = Open3.popen3("curl '#{init_query_url}'")
 		  AppParser.new(stdout.read).parse
@@ -39,7 +40,7 @@ module GooglePlaySearch
 		def init_query_url
 		  query_url = ""
 		  query_url << GOOGLE_PLAY_BASE_SEARCH_URL
-		  query_url << @keyword << "&"
+		  query_url << CGI.escape(@keyword) << "&"
 		  query_url << "c=" << @search_condition[:category] << "&"
 		  query_url << "hl=" << @search_condition[:language] << "&"
                   query_url << "price=" << @search_condition[:price] << "&"
