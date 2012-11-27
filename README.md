@@ -86,9 +86,9 @@ p app_list[0].logo_url
 #  The survival of the Angry Birds is at stake. Dish out revenge on the greedy pigs who s...")
 p app_list[0].short_description
 
-# android app average review point (like 4.6)
+# android app average review rating (like 4.6)
 # type is float
-p app_list[0].point 
+p app_list[0].rating 
 
 # android app average review count (like 12921)
 # type is int

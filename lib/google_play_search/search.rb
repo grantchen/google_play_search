@@ -49,6 +49,7 @@ module GooglePlaySearch
 		  start = (@current_page - 1) * @search_condition[:per_page_num]
 		  query_url << "start=#{start}&num=#{@search_condition[:per_page_num]}"
 		end
-
 	end
 end
+
+

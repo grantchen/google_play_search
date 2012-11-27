@@ -18,8 +18,8 @@ module GooglePlaySearch
 		      app.category = get_category app_content
 		      app.logo_url = get_logo_url app_content
 		      app.short_description = get_short_description app_content
-                      app.point = get_app_point app_content
-                      app.reviews = get_app_reviews app_content
+          app.rating = get_app_rating app_content
+          app.reviews = get_app_reviews app_content
 		      app_search_result_list << app
 		  end
 		  app_search_result_list
@@ -54,16 +54,22 @@ module GooglePlaySearch
 		  app_content.css("div.description").first.content
 		end
 
-                def get_app_point(app_content)
-                  point_str = app_content.css("div.ratings").first['title']
-                  unless point_str.empty?
-                    return point_str[/\d+\.?\d?/].to_f
-                  end
-                  return 0
-                end
+    def get_app_rating(app_content)
+      ratings = app_content.css("div.ratings")
+      if ratings && ratings.size > 0
+        rating_str = ratings.first['title']
+        unless rating_str.empty?
+          return rating_str[/\d+\.?\d?/].to_f
+        end
+        return 0
+      end
+    end
 
-                def get_app_reviews(app_content)
-                  app_content.css("span.snippet-reviews").first.content[1..-2].gsub(',','').to_i
-                end
+    def get_app_reviews(app_content)
+      reviews = app_content.css("span.snippet-reviews")
+      if reviews && reviews.size > 0
+        reviews.first.content[1..-2].gsub(',','').to_i
+      end
+    end
 	end
 end
