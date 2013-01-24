@@ -95,3 +95,7 @@ p app_list[0].rating
 p app_list[0].reviews 
 
 ```
+### Note
+
+As google play site have access limit. So if you use this gem search app very often.
+Some times will return nothing.
