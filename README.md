@@ -94,6 +94,10 @@ p app_list[0].rating
 # type is int
 p app_list[0].reviews 
 
+# android app price (like "$2.99")
+# type is string
+p app_list[0].price
+
 ```
 ### Note
 
