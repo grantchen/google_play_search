@@ -8,13 +8,13 @@ module GooglePlaySearch
   class Search
     attr_accessor :current_page, :keyword
 
-    $GOOGLE_PLAY_STORE_BASE_URL = "https://play.google.com"  
+    $GOOGLE_PLAY_STORE_BASE_URL = "https://play.google.com"
 
-    GOOGLE_PLAY_BASE_SEARCH_URL = $GOOGLE_PLAY_STORE_BASE_URL + "/store/search?q="  
+    GOOGLE_PLAY_BASE_SEARCH_URL = $GOOGLE_PLAY_STORE_BASE_URL + "/store/search?q="
 
-    DEFAULT_SEARCH_CONDITION = {:language => "en", 
-      :category => "apps", 
-      :per_page_num => 24, 
+    DEFAULT_SEARCH_CONDITION = {:language => "en",
+      :category => "apps",
+      :per_page_num => 24,
       :price => "0",
       :safe_search => "0",
       :sort_by => "1"}
@@ -51,5 +51,4 @@ module GooglePlaySearch
     end
   end
 end
-
 
