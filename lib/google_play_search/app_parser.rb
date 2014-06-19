@@ -23,7 +23,7 @@ module GooglePlaySearch
 
     private
     def get_url(app_content)
-      url = $GOOGLE_PLAY_STORE_BASE_URL + app_content.css("div.cover a.card-content-link").first['href']
+      url = $GOOGLE_PLAY_STORE_BASE_URL + app_content.css("a.card-click-target").first['href']
       if url.end_with?(SEARCH_APP_URL_END_SUFF)
         url = url[0..-1* (SEARCH_APP_URL_END_SUFF.size + 1)]
       end
