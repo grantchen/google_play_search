@@ -30,6 +30,18 @@ module GooglePlaySearch
       url
     end
 
+    def get_version(app_content)
+      @google_play_html.search("div[itemprop='softwareVersion']").first.content.strip
+    end
+
+    def get_last_updated(app_content)
+      @google_play_html.search("div[itemprop='datePublished']").first.content.strip
+    end
+
+    def get_installs(app_content)
+      @google_play_html.search("div[itemprop='numDownloads']").first.content.strip
+    end
+
     def get_logo_url(app_content)
       app_content.css("div.cover div.cover-inner-align img").first['src']
     end
@@ -105,6 +117,16 @@ module GooglePlaySearch
       app.logo_url = get_logo_url app_content
       app.short_description = get_short_description app_content
       app.rating = get_app_rating app_content
+
+
+
+      stdin, stdout, stderr = Open3.popen3("curl '#{app.url}'")
+      @google_play_html = Nokogiri::HTML(stdout.read)
+
+      app.version = get_version app_content
+      app.last_updated = get_last_updated app_content
+      app.installs = get_installs app_content
+      
       return app
     end
   end
