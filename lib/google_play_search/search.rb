@@ -27,7 +27,6 @@ module GooglePlaySearch
     def search(keyword, options={})
       @current_page = options[:page].nil? ? 1 : options[:page]
       @keyword = keyword
-      puts init_query_url
       stdin, stdout, stderr = Open3.popen3("curl '#{init_query_url}'")
       AppParser.new(stdout.read).parse
     end
