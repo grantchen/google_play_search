@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'nokogiri'
-require 'open3'
+require 'open-uri'
 require 'cgi'
 require File.expand_path(File.dirname(__FILE__) + '/app_parser')
 
@@ -27,8 +27,8 @@ module GooglePlaySearch
     def search(keyword, options={})
       @current_page = options[:page].nil? ? 1 : options[:page]
       @keyword = keyword
-      stdin, stdout, stderr = Open3.popen3("curl '#{init_query_url}'")
-      AppParser.new(stdout.read).parse
+      stdout = open(init_query_url).read()
+      AppParser.new(stdout).parse
     end
 
     def next_page()
