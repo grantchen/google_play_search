@@ -4,7 +4,6 @@ module GooglePlaySearch
     attr_accessor :id, :name, :url, :developer, :category, :logo_url, :short_description, :rating, :reviews, :price, :version, :installs, :last_updated
 
     def get_all_details()
-    	puts self.url
       html = open(self.url).read()
       @google_play_html = Nokogiri::HTML(html)
 
@@ -12,7 +11,7 @@ module GooglePlaySearch
       self.last_updated = get_last_updated 
       self.installs = get_installs
       self
-  	end
+    end
 
 
   	private
