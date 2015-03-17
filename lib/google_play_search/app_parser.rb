@@ -87,7 +87,7 @@ module GooglePlaySearch
 
     def get_app_price(app_content)
       prices = app_content.css("div.details span.price-container button.price span")
-      if prices
+      if prices and prices.first
         if match = prices.first.content.match(/(.[0-9]*\.[0-9]+|[0-9]+)/)
           return match[1]
         end
