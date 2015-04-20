@@ -6,8 +6,9 @@ Gem::Specification.new do |s|
   s.description = "google play market search gem"
   s.authors     = ["Grant Chen"]
   s.email       = 'kucss@hotmail.com'
+  s.license     = 'MIT'
 
-  s.add_dependency('nokogiri','>= 1.5.3')
+  s.add_runtime_dependency('nokogiri','~> 1.5')
 
   s.files         = Dir['lib/**/*.rb'] + Dir['*.rb']
   s.homepage    =
