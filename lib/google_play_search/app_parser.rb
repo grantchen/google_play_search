@@ -69,7 +69,7 @@ module GooglePlaySearch
 
     def get_app_rating(app_content)
       ratings = app_content.css("div.current-rating")
-      if ratings
+      if ratings && ratings.first
         rating_str = ratings.first['style']
         unless rating_str.empty?
           return rating_str[/\d+\.?\d?/].to_f / 100 * 5
