@@ -51,4 +51,3 @@ module GooglePlaySearch
     end
   end
 end
-

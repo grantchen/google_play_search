@@ -61,36 +61,57 @@ gps = GooglePlaySearch::Search.new(:language=>"en", :category=>"apps", :per_page
 ###Search Result
 ```ruby
 app_list = gps.search("bird")
+app = app_list.first
 
 # android app id (like "com.rovio.angrybirds")
-p app_list[0].id
+app.id
 
 # android app name (like "Angry Birds")
-p app_list[0].name
+app.name
 
 # android app url (like "https://play.google.com/store/apps/details?id=com.rovio.angrybirds")
-p app_list[0].url
+app.url
 
 # android app developer (like "Rovio Mobile Ltd.")
-p app_list[0].developer
+app.developer
 
 # android app logo url (like
 # "https://lh3.ggpht.com/6c2H-PDJk5Sax4WaIiTQgovdqvfNZZbtoQyktOgd_uW-Hh09idFdej14LPqalvVz9LA=w78-h78")
-p app_list[0].logo_url
+app.logo_url
 
 # android app short description
 # (like "Use the unique powers of the Angry Birds to destroy the greedy pigs' fortresses!
 #  The survival of the Angry Birds is at stake. Dish out revenge on the greedy pigs who s...")
-p app_list[0].short_description
+app.short_description
 
 # android app average review rating (like 4.6)
 # type is float
-p app_list[0].rating
+app.rating
 
 # android app price (like "$2.99")
 # type is string
-p app_list[0].price
+app.price
 
+# also you can get app version, installs, last updated and other details
+app.get_all_details
+
+# android app version (like '1.9.5')
+app.version
+
+# android app last updated (like '19 December 2014')
+app.last_updated
+
+# android app installs (like '5,000,000 - 10,000,000')
+app.installs
+
+# android app size (like '15M')
+app.size
+
+# android app require android version (like '2.3 and up')
+app.requires_android
+
+# android app content rating (like 'Everyone')
+app.content_rating
 ```
 ### Note
 
