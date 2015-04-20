@@ -16,6 +16,7 @@ module GooglePlaySearch
       self.size = get_size(google_play_html)
       self.requires_android = get_requires_android(google_play_html)
       self.content_rating = get_content_rating(google_play_html)
+      self
     end
 
   	private
