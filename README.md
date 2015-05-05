@@ -1,4 +1,4 @@
-google_play_search is a Ruby gem that provides search functions in google play store.1
+google_play_search is a Ruby gem that provides search functions in google play store.
 
 ### Installation
 
