@@ -18,14 +18,14 @@ module GooglePlaySearch
       self.content_rating = get_content_rating(google_play_html)
       self.category = get_category(google_play_html)
       self
+    rescue
+      self
     end
 
     private
 
     def get_version(google_play_html)
       google_play_html.search("div[itemprop='softwareVersion']").first.content.strip
-    rescue
-      nil
     end
 
     def get_last_updated(google_play_html)
