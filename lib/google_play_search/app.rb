@@ -24,6 +24,8 @@ module GooglePlaySearch
 
     def get_version(google_play_html)
       google_play_html.search("div[itemprop='softwareVersion']").first.content.strip
+    rescue
+      nil
     end
 
     def get_last_updated(google_play_html)
