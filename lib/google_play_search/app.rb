@@ -16,10 +16,12 @@ module GooglePlaySearch
       self.size = get_size(google_play_html)
       self.requires_android = get_requires_android(google_play_html)
       self.content_rating = get_content_rating(google_play_html)
+      self.category = get_category(google_play_html)
       self
     end
 
   	private
+
   	def get_version(google_play_html)
       google_play_html.search("div[itemprop='softwareVersion']").first.content.strip
     end
@@ -44,5 +46,8 @@ module GooglePlaySearch
       google_play_html.search("div[itemprop='contentRating']").first.content.strip
     end
 
+    def get_category(google_play_html)
+      google_play_html.search("span[itemprop='genre']").first.content.strip
+    end
   end
 end
