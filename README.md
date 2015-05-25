@@ -112,6 +112,9 @@ app.requires_android
 
 # android app content rating (like 'Everyone')
 app.content_rating
+
+# app category (like 'Arcade')
+app.category
 ```
 ### Note
 
