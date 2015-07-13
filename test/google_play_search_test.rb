@@ -18,10 +18,12 @@ describe GooglePlaySearch do
       assert_equal @gps.current_page, 2
     end
 
-    it "per page num should work" do
-      @gps = GooglePlaySearch::Search.new(:per_page_num=>10)
+    it "rating should work" do
+      @gps = GooglePlaySearch::Search.new({rating: "1"})
       apps = @gps.search("bird")
-      assert_equal 10, apps.size
+      apps.each do |app|
+        assert_equal true, app.rating.to_f.round >= 4.0
+      end
     end
   end
 end

@@ -23,18 +23,17 @@ require 'google_play_search'
 gps = GooglePlaySearch::Search.new
 
 # it will return app arrary. default is first page
-# default every page returns 24 apps
-gps.search("bird")
+# default every page returns 20 apps
+apps = gps.search("bird")
 
 # you can search next page app arrary
-gps.next_page # current page will be change to 2
+apps = gps.next_page # current page will be change to 2
 
-# you also can search the page what you want
-gps.search("bird", :page => 3)
-gps.next_page # current page will be change to 4
+# current page will be change to 3
+apps = gps.next_page
 
 # you can see current page (return page numer)
-p gps.current_page # 4
+p gps.current_page # 3
 
 # you can see current_page (return page numer)
 p gps.kewyword # "bird"
@@ -46,17 +45,14 @@ gps.search("tiger") # current page will be change to default 1
 
 ###Configuring
 ```ruby
-gps = GooglePlaySearch::Search.new(:language=>"en", :category=>"apps", :per_page_num=>10,
-                                   :price => 0, :safe_search => 0, :sort_by => 1)
+gps = GooglePlaySearch::Search.new(:language=>"en", :category=>"apps",
+                                   :price => 0, :rating => 1)
 ```
 * `language`: search language. Default:en. (can be "en", "zh_CN", "ja", "ko", "fr")
 * `category`: search category. Default:apps. (can be "apps","music","movies","books","magazines").
               some country don't support "music","movies","books","magazines" yet.
-* `per_page_num`: app numbers in every page of search result. Default: 24
 * `price`: app price. Default: "0" - All Price. Can be "1" - Free App. "2" -  need paid App.
-* `safe_search`: search safe mode. Default: "0" - search safe off. Can be "1" - low safe mode.
-                 "2" - moderate safe mode. "3" - strict safe mode .
-* `sort_by`: app list sort by. Default: "1" - sort by Relevance. Can be "0" - sort by popularity
+* `rating`: rating search conditions. Default: "0" - All ratings. Can be "1" - "4 stars +" App
 
 ###Search Result
 ```ruby
