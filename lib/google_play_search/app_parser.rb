@@ -78,13 +78,6 @@ module GooglePlaySearch
       end
     end
 
-    def get_app_reviews(app_content)
-      reviews = app_content.css("span.snippet-reviews")
-      if reviews && reviews.size > 0
-        reviews.first.content[1..-2].gsub(',','').to_i
-      end
-    end
-
     def get_app_price(app_content)
       prices = app_content.css("div.details span.price-container button.price span")
       if prices and prices.first

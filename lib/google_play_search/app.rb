@@ -1,10 +1,13 @@
 require 'open-uri'
+require File.expand_path(File.dirname(__FILE__) + '/review')
+
 module GooglePlaySearch
   class App
     attr_accessor :id, :name, :url, :developer, :category, :logo_url,
                   :short_description, :rating, :reviews, :price,
                   :version, :installs, :last_updated, :size,
-                  :requires_android, :content_rating
+                  :requires_android, :content_rating, :developer_website,
+                  :developer_email, :developer_address
 
     def get_all_details()
       html = open(self.url).read()
@@ -17,6 +20,10 @@ module GooglePlaySearch
       self.requires_android = get_requires_android(google_play_html)
       self.content_rating = get_content_rating(google_play_html)
       self.category = get_category(google_play_html)
+      self.developer_website = get_developer_website(google_play_html)
+      self.developer_email = get_developer_email(google_play_html)
+      self.developer_address = get_developer_address(google_play_html)
+      self.reviews = get_reviews(google_play_html)
       self
     rescue
       self
@@ -50,6 +57,33 @@ module GooglePlaySearch
 
     def get_category(google_play_html)
       google_play_html.search("span[itemprop='genre']").first.content.strip
+    end
+
+    def get_developer_website(google_play_html)
+      url = google_play_html.search("a[class='dev-link']").first['href'].strip.gsub("https://www.google.com/url?q=", "")
+      url[0..(url.index("&") - 1)]
+    end
+
+    def get_developer_email(google_play_html)
+      google_play_html.search("a[class='dev-link']").last.content.strip.gsub("Email ", "")
+    end
+
+    def get_developer_address(google_play_html)
+      google_play_html.search("div[class='content physical-address']").first.content.strip
+    end
+
+    def get_reviews(google_play_html)
+      reviews = []
+      google_play_html.search("div[class='single-review']").each do |ele|
+        review = GooglePlaySearch::Review.new()
+        review.author_name = ele.search("span[class='author-name']").first.content.strip
+        review.author_avatar = ele.search("img[class='author-image']").first['src'].strip
+        review.review_title = ele.search("span[class='review-title']").first.content.strip
+        review.review_content = ele.search("div[class='review-body']").children[2].content.strip
+        review.star_rating = ele.search("div[class='tiny-star star-rating-non-editable-container']").first['aria-label'].scan(/\d/).first.to_i
+        reviews << review
+      end
+      reviews
     end
   end
 end

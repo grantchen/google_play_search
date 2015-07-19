@@ -91,6 +91,7 @@ app.price
 # also you can get app version, installs, last updated and other details
 app.get_all_details
 
+# Below are the details of app
 # android app version (like '1.9.5')
 app.version
 
@@ -111,6 +112,24 @@ app.content_rating
 
 # app category (like 'Arcade')
 app.category
+
+# app developer website
+app.developer_website
+
+# app developer email
+app.developer_email
+
+# app developer address
+app.developer_address
+
+# app reviews (only 40 reviews)
+app.reviews
+#<GooglePlaySearch::Review
+# @author_name="alex persohn",
+# @author_avatar="https://lh6.googleusercontent.com/xxxxxxx/photo.jpg",
+# @review_title="Was really fun, but keeps freezing.",
+# @review_content="This is a really addicting game, but as of late the app keeps freezing. Every three games or so, it will freeze and I have to kill the app via task manager. It's some error in the app fetching the add, which just makes it even more frustrating. Would rate 5 stars if this didn't happen.",
+# @star_rating= 1
 ```
 ### Note
 
