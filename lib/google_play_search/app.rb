@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'nokogiri'
 require File.expand_path(File.dirname(__FILE__) + '/review')
 
 module GooglePlaySearch
@@ -7,7 +8,7 @@ module GooglePlaySearch
                   :short_description, :rating, :reviews, :price,
                   :version, :installs, :last_updated, :size,
                   :requires_android, :content_rating, :developer_website,
-                  :developer_email, :developer_address
+                  :developer_email, :developer_address, :screenshots
 
     def get_all_details()
       html = open(self.url).read()
@@ -24,6 +25,7 @@ module GooglePlaySearch
       self.developer_email = get_developer_email(google_play_html)
       self.developer_address = get_developer_address(google_play_html)
       self.reviews = get_reviews(google_play_html)
+      self.screenshots = get_screenshots(google_play_html)
       self
     rescue
       self
@@ -32,44 +34,54 @@ module GooglePlaySearch
     private
 
     def get_version(google_play_html)
-      google_play_html.search("div[itemprop='softwareVersion']").first.content.strip
+      version = google_play_html.search("div[itemprop='softwareVersion']").first
+      version.content.strip if version
     end
 
     def get_last_updated(google_play_html)
-      google_play_html.search("div[itemprop='datePublished']").first.content.strip
+      last_updated = google_play_html.search("div[itemprop='datePublished']").first
+      last_updated.content.strip if last_updated
     end
 
     def get_installs(google_play_html)
-      google_play_html.search("div[itemprop='numDownloads']").first.content.strip
+      installs = google_play_html.search("div[itemprop='numDownloads']").first
+      installs.content.strip if installs
     end
 
     def get_size(google_play_html)
-      google_play_html.search("div[itemprop='fileSize']").first.content.strip
+      size = google_play_html.search("div[itemprop='fileSize']").first
+      size.content.strip if size
     end
 
     def get_requires_android(google_play_html)
-      google_play_html.search("div[itemprop='operatingSystems']").first.content.strip
+      requires_android = google_play_html.search("div[itemprop='operatingSystems']").first
+      requires_android.content.strip if requires_android
     end
 
     def get_content_rating(google_play_html)
-      google_play_html.search("div[itemprop='contentRating']").first.content.strip
+      content_rating = google_play_html.search("div[itemprop='contentRating']").first
+      content_rating.content.strip if content_rating
     end
 
     def get_category(google_play_html)
-      google_play_html.search("span[itemprop='genre']").first.content.strip
+      category = google_play_html.search("span[itemprop='genre']").first
+      category.content.strip if category
     end
 
     def get_developer_website(google_play_html)
       url = google_play_html.search("a[class='dev-link']").first['href'].strip.gsub("https://www.google.com/url?q=", "")
-      url[0..(url.index("&") - 1)]
+      url[0..(url.index("&") - 1)] if url.index("&")
     end
 
     def get_developer_email(google_play_html)
-      google_play_html.search("a[class='dev-link']").last.content.strip.gsub("Email ", "")
+      google_play_html.search("a[class='dev-link']").each do |ele|
+        return ele.content.strip.gsub("Email ", "") if ele.content.strip.index("Email")
+      end
     end
 
     def get_developer_address(google_play_html)
-      google_play_html.search("div[class='content physical-address']").first.content.strip
+      address = google_play_html.search("div[class='content physical-address']").first
+      address.content.strip if address
     end
 
     def get_reviews(google_play_html)
@@ -85,5 +97,14 @@ module GooglePlaySearch
       end
       reviews
     end
+
+    def get_screenshots(google_play_html)
+      screenshots = []
+      google_play_html.search("div[class='screenshot-align-inner'] img").each do |ele|
+        screenshots << ele['src'].strip
+      end
+      screenshots
+    end
+
   end
 end

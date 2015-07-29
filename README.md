@@ -122,6 +122,9 @@ app.developer_email
 # app developer address
 app.developer_address
 
+# app screenshots
+app.screenshots
+
 # app reviews (only 40 reviews)
 app.reviews
 #<GooglePlaySearch::Review
