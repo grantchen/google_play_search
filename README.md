@@ -125,6 +125,9 @@ app.developer_address
 # app screenshots
 app.screenshots
 
+# app long description
+app.long_description
+
 # app reviews (only 40 reviews)
 app.reviews
 #<GooglePlaySearch::Review

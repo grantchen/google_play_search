@@ -8,7 +8,8 @@ module GooglePlaySearch
                   :short_description, :rating, :reviews, :price,
                   :version, :installs, :last_updated, :size,
                   :requires_android, :content_rating, :developer_website,
-                  :developer_email, :developer_address, :screenshots
+                  :developer_email, :developer_address, :screenshots,
+                  :long_description
 
     def get_all_details()
       html = open(self.url).read()
@@ -26,6 +27,7 @@ module GooglePlaySearch
       self.developer_address = get_developer_address(google_play_html)
       self.reviews = get_reviews(google_play_html)
       self.screenshots = get_screenshots(google_play_html)
+      self.long_description = get_long_description(google_play_html)
       self
     rescue
       self
@@ -82,6 +84,11 @@ module GooglePlaySearch
     def get_developer_address(google_play_html)
       address = google_play_html.search("div[class='content physical-address']").first
       address.content.strip if address
+    end
+
+    def get_long_description(google_play_html)
+      long_description = google_play_html.search("div[class='id-app-orig-desc']").first
+      long_description.content.strip if long_description
     end
 
     def get_reviews(google_play_html)
