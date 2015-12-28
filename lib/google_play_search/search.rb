@@ -56,7 +56,9 @@ module GooglePlaySearch
     end
 
     def get_next_page_token(response_body)
-      @next_page_token = response_body.match(/(GAEi+.+:S:.{11})\\42/)[1][-22..-1]
+      if response_body.match(/(GAEi+.+:S:.{11})\\42/)
+        @next_page_token = $~[1][-22..-1]
+      end
     end
   end
 end

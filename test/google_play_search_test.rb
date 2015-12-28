@@ -18,6 +18,13 @@ describe GooglePlaySearch do
       assert_equal @gps.current_page, 2
     end
 
+    it "should return no apps when there are no results" do
+      apps = @gps.search('qqqqqqqqqqqqqqqqqqqq')
+      assert_instance_of Array, apps
+      assert_empty apps
+      assert_equal @gps.current_page, 1
+    end
+
     it "rating should work" do
       @gps = GooglePlaySearch::Search.new({rating: "1"})
       apps = @gps.search("bird")
