@@ -1,4 +1,3 @@
-require 'open-uri'
 require 'nokogiri'
 require File.expand_path(File.dirname(__FILE__) + '/review')
 
@@ -12,7 +11,7 @@ module GooglePlaySearch
                   :long_description
 
     def get_all_details()
-      html = open(self.url).read()
+      html = HTTPClient.new.get(self.url).body
       google_play_html = Nokogiri::HTML(html)
 
       self.version = get_version(google_play_html)

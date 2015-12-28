@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'nokogiri'
-require 'open-uri'
 require 'cgi'
 require File.expand_path(File.dirname(__FILE__) + '/app_parser')
 
@@ -27,9 +26,9 @@ module GooglePlaySearch
 
     def search(keyword, options={})
       @keyword = keyword
-      stdout = open(init_query_url).read()
-      get_next_page_token(stdout)
-      AppParser.new(stdout).parse
+      page = HTTPClient.new.get(init_query_url).body
+      get_next_page_token(page)
+      AppParser.new(page).parse
     end
 
     def next_page()
