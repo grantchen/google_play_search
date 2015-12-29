@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
 
   s.add_runtime_dependency('nokogiri','~> 1.5')
+  s.add_development_dependency('rake')
 
   s.files         = Dir['lib/**/*.rb'] + Dir['*.rb']
   s.homepage    =
