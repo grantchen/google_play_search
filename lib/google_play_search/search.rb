@@ -13,9 +13,7 @@ module GooglePlaySearch
 
     DEFAULT_SEARCH_CONDITION = {:language => "en",
       :category => "apps",
-      #:per_page_num => 20,
       :price => "0",
-      #:safe_search => "0",
       :rating => "0"}
 
     def initialize(search_condition = DEFAULT_SEARCH_CONDITION)
@@ -45,8 +43,6 @@ module GooglePlaySearch
       query_url << "hl=" << @search_condition[:language] << "&"
       query_url << "price=" << @search_condition[:price] << "&"
       query_url << "rating=" << @search_condition[:rating] << "&"
-      #query_url << "safe=" << @search_condition[:safe_search] << "&"
-      #query_url << "sort=" << @search_condition[:sort_by] << "&"
       query_url << "start=0&num=0"
       if @next_page_token
         query_url << "&pagTok=#{@next_page_token}"
