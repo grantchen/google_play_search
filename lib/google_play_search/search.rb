@@ -9,7 +9,7 @@ module GooglePlaySearch
 
     $GOOGLE_PLAY_STORE_BASE_URL = "https://play.google.com"
 
-    GOOGLE_PLAY_BASE_SEARCH_URL = $GOOGLE_PLAY_STORE_BASE_URL + "/store/search?q="
+    GOOGLE_PLAY_BASE_SEARCH_URL = $GOOGLE_PLAY_STORE_BASE_URL + "/store/search"
 
     DEFAULT_SEARCH_CONDITION = {:language => "en",
       :category => "apps",
@@ -24,7 +24,7 @@ module GooglePlaySearch
 
     def search(keyword, options={})
       @keyword = keyword
-      page = HTTPClient.new.get(init_query_url).body
+      page = HTTPClient.new.get(GOOGLE_PLAY_BASE_SEARCH_URL, query_params).body
       get_next_page_token(page)
       AppParser.new(page).parse
     end
@@ -35,19 +35,20 @@ module GooglePlaySearch
     end
 
     private
-    def init_query_url
-      query_url = ""
-      query_url << GOOGLE_PLAY_BASE_SEARCH_URL
-      query_url << CGI.escape(@keyword) << "&"
-      query_url << "c=" << @search_condition[:category] << "&"
-      query_url << "hl=" << @search_condition[:language] << "&"
-      query_url << "price=" << @search_condition[:price] << "&"
-      query_url << "rating=" << @search_condition[:rating] << "&"
-      query_url << "start=0&num=0"
+    def query_params
+      params = {
+        'q' => @keyword,
+        'c' => @search_condition[:category],
+        'hl' => @search_condition[:language],
+        'price' => @search_condition[:price],
+        'rating' => @search_condition[:rating],
+        'start' => 0,
+        'num' => 0
+      }
       if @next_page_token
-        query_url << "&pagTok=#{@next_page_token}"
+        params['pagTok'] = @next_page_token
       end
-      query_url
+      params
     end
 
     def get_next_page_token(response_body)
