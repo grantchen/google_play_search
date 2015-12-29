@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'google_play_search'
-  s.version     = '0.0.17'
-  s.date        = '2015-12-28'
+  s.version     = '0.0.18'
+  s.date        = '2015-12-29'
   s.summary     = "google play market search"
   s.description = "google play market search gem"
   s.authors     = ["Grant Chen"]
