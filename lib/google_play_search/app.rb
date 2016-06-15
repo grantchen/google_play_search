@@ -76,7 +76,7 @@ module GooglePlaySearch
 
     def get_developer_email(google_play_html)
       google_play_html.search("a[class='dev-link']").each do |ele|
-        return ele.content.strip.gsub("Email ", "") if ele.content.strip.index("Email")
+        return ele['href'].strip.gsub("mailto:", "") if ele['href'].strip.index("mailto:")
       end
     end
 
