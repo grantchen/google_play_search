@@ -136,6 +136,25 @@ app.reviews
 # @review_title="Was really fun, but keeps freezing.",
 # @review_content="This is a really addicting game, but as of late the app keeps freezing. Every three games or so, it will freeze and I have to kill the app via task manager. It's some error in the app fetching the add, which just makes it even more frustrating. Would rate 5 stars if this didn't happen.",
 # @star_rating= 1
+
+# app ratings count
+app.ratings_count
+
+# app 5 star ratings count
+app.count_5_star
+
+# app 4 star ratings count
+app.count_4_star
+
+# app 3 star ratings count
+app.count_3_star
+
+# app 2 star ratings count
+app.count_2_star
+
+# app 1 star ratings count
+app.count_1_star
+
 ```
 ### Note
 
