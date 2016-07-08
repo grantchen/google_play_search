@@ -4,7 +4,8 @@ require File.expand_path(File.dirname(__FILE__) + '/review')
 module GooglePlaySearch
   class App
     attr_accessor :id, :name, :url, :developer, :category, :logo_url,
-                  :short_description, :rating, :reviews, :price,
+                  :short_description, :rating, :ratings_count, :reviews, :price,
+                  :count_5_star, :count_4_star, :count_3_star, :count_2_star, :count_1_star,
                   :version, :installs, :last_updated, :size,
                   :requires_android, :content_rating, :developer_website,
                   :developer_email, :developer_address, :screenshots,
@@ -24,9 +25,17 @@ module GooglePlaySearch
       self.developer_website = get_developer_website(google_play_html)
       self.developer_email = get_developer_email(google_play_html)
       self.developer_address = get_developer_address(google_play_html)
+      self.long_description = get_long_description(google_play_html)
+
+      self.ratings_count = get_ratings_count(google_play_html)
+      self.count_5_star = get_star_count(5, google_play_html)
+      self.count_4_star = get_star_count(4, google_play_html)
+      self.count_3_star = get_star_count(3, google_play_html)
+      self.count_2_star = get_star_count(2, google_play_html)
+      self.count_1_star = get_star_count(1, google_play_html)
+
       self.reviews = get_reviews(google_play_html)
       self.screenshots = get_screenshots(google_play_html)
-      self.long_description = get_long_description(google_play_html)
       self
     rescue
       self
@@ -112,5 +121,17 @@ module GooglePlaySearch
       screenshots
     end
 
+    def get_ratings_count(google_play_html)
+      ratings_count = google_play_html.search("span[class='reviews-num']").first
+      ratings_count.content.strip if ratings_count
+    end
+
+    def get_star_count(num_stars, google_play_html)
+      star_word = ['zero', 'one', 'two', 'three', 'four', 'five'][num_stars]
+
+      stars_root = google_play_html.search("div[class='rating-bar-container #{star_word}']").first
+      stars_count = stars_root.search("span[class='bar-number']").first if stars_root
+      stars_count.content.strip if stars_count
+    end
   end
 end
