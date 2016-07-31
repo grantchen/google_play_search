@@ -31,15 +31,15 @@ module GooglePlaySearch
     end
 
     def get_logo_url(app_content)
-      app_content.css("div.cover div.cover-inner-align img").first['src']
+      app_content.css("img.cover-image").first['src']
     end
 
     def get_name(app_content)
-      app_content.css("div.details a.title").first.content.strip
+      app_content.css("a.title").first.content.strip
     end
 
     def get_developer(app_content)
-      deleloper_contents_list = app_content.css("div.details div.subtitle-container a.subtitle")
+      deleloper_contents_list = app_content.css("div.subtitle-container a.subtitle")
       if deleloper_contents_list && deleloper_contents_list.size > 0
         return deleloper_contents_list.first.content
       else
@@ -52,7 +52,7 @@ module GooglePlaySearch
     end
 
     def get_category(app_content)
-      category_contents = app_content.css("div.details div.attribution-category span.category a")
+      category_contents = app_content.css("div.attribution-category span.category a")
       if category_contents && category_contents.size>0
         return category_contents.first.content
       end
@@ -79,7 +79,7 @@ module GooglePlaySearch
     end
 
     def get_app_price(app_content)
-      prices = app_content.css("div.details span.price-container button.price span")
+      prices = app_content.css("span.price-container button.price span")
       if prices and prices.first
         if match = prices.first.content.match(/(.[0-9]*\.[0-9]+|[0-9]+)/)
           return match[1]
