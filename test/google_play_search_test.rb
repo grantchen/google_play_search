@@ -1,12 +1,21 @@
 require 'minitest/autorun'
 require 'google_play_search'
+require 'vcr'
+require "minitest-vcr"
+
+VCR.configure do |config|
+  config.cassette_library_dir = "fixtures/vcr_cassettes"
+  config.hook_into :webmock
+end
+
+MinitestVcr::Spec.configure!
 
 describe GooglePlaySearch do
   before do
     @gps = GooglePlaySearch::Search.new
   end
 
-  describe "#search" do
+  describe "#search", :vcr do
     it "should returns the apps" do
       apps = @gps.search("bird")
       assert_instance_of Array, apps
