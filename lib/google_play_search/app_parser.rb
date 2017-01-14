@@ -1,7 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/app')
+require File.expand_path(File.dirname(__FILE__) + '/utils')
 
 module GooglePlaySearch
   class AppParser
+    include GooglePlaySearch::Utils
+
     SEARCH_APP_URL_END_SUFF = "&feature=search_result"
 
     def initialize(content)
@@ -31,7 +34,7 @@ module GooglePlaySearch
     end
 
     def get_logo_url(app_content)
-      app_content.css("img.cover-image").first['src']
+      add_http_prefix(app_content.css("img.cover-image").first['src'])
     end
 
     def get_name(app_content)

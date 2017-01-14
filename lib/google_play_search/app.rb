@@ -1,8 +1,11 @@
 require 'nokogiri'
 require File.expand_path(File.dirname(__FILE__) + '/review')
+require File.expand_path(File.dirname(__FILE__) + '/utils')
 
 module GooglePlaySearch
   class App
+    include GooglePlaySearch::Utils
+
     attr_accessor :id, :name, :url, :developer, :category, :logo_url,
                   :short_description, :rating, :ratings_count, :reviews, :price,
                   :count_5_star, :count_4_star, :count_3_star, :count_2_star, :count_1_star,
@@ -101,12 +104,13 @@ module GooglePlaySearch
 
     def get_reviews(google_play_html)
       reviews = []
-      google_play_html.search("div[class='single-review']").each do |ele|
+      google_play_html.search("div[class='featured-review']").each do |ele|
         review = GooglePlaySearch::Review.new()
         review.author_name = ele.search("span[class='author-name']").first.content.strip
-        review.author_avatar = ele.search("img[class='author-image']").first['src'].strip
+        review.author_avatar = get_image_url_from_style(
+                  ele.search("span[class='responsive-img author-image']").first['style'].strip)
         review.review_title = ele.search("span[class='review-title']").first.content.strip
-        review.review_content = ele.search("div[class='review-body']").children[2].content.strip
+        review.review_content = ele.search("div[class='review-text']").children[2].content.strip
         review.star_rating = ele.search("div[class='tiny-star star-rating-non-editable-container']").first['aria-label'].scan(/\d/).first.to_i
         reviews << review
       end
@@ -116,7 +120,7 @@ module GooglePlaySearch
     def get_screenshots(google_play_html)
       screenshots = []
       google_play_html.search("div[class='screenshot-align-inner'] img").each do |ele|
-        screenshots << ele['src'].strip
+        screenshots << add_http_prefix(ele['src'].strip)
       end
       screenshots
     end
