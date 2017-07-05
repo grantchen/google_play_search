@@ -98,7 +98,7 @@ module GooglePlaySearch
     end
 
     def get_long_description(google_play_html)
-      long_description = google_play_html.search("div[class='id-app-orig-desc']").first
+      long_description = google_play_html.search("div[itemprop='description']").first
       long_description.content.strip if long_description
     end
 
