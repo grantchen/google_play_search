@@ -1,11 +1,11 @@
 Gem::Specification.new do |s|
   s.name        = 'google_play_search'
-  s.version     = '0.0.23'
-  s.date        = '2017-01-14'
+  s.version     = '0.0.24'
+  s.date        = '2017-07-06'
   s.summary     = "google play market search"
   s.description = "google play market search gem"
   s.authors     = ["Grant Chen"]
-  s.email       = 'kucss@hotmail.com'
+  s.email       = 'grantcss1982@gmail.com'
   s.license     = 'MIT'
 
   s.add_runtime_dependency('nokogiri','~> 1.5')
