@@ -42,13 +42,13 @@ module GooglePlaySearch
     end
 
     def get_developer(app_content)
-      deleloper_contents_list = app_content.css("div.subtitle-container a.subtitle")
-      if deleloper_contents_list && deleloper_contents_list.size > 0
-        return deleloper_contents_list.first.content
+      developer_contents_list = app_content.css("div.subtitle-container a.subtitle")
+      if developer_contents_list && developer_contents_list.size > 0
+        return developer_contents_list.first.content
       else
-        deleloper_contents_single = app_content.css("div.details span.attribution a")
-        if deleloper_contents_single && deleloper_contents_single.size > 0
-          return deleloper_contents_single.first.content
+        developer_contents_single = app_content.css("div.details span.attribution a")
+        if developer_contents_single && developer_contents_single.size > 0
+          return developer_contents_single.first.content
         end
       end
       return ""
