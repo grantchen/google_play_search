@@ -36,7 +36,6 @@ p gps.kewyword # "bird"
 ```ruby
 gps = GooglePlaySearch::Search.new(:language=>"en", :category=>"apps",
                                    :price => 0, :rating => 1)
-```
 * `language`: search language. Default:en. (can be "en", "zh_CN", "ja", "ko", "fr")
 * `category`: search category. Default:apps. (can be "apps","music","movies","books","magazines").
               some country don't support "music","movies","books","magazines" yet.
