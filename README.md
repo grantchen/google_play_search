@@ -22,28 +22,17 @@ require 'google_play_search'
 
 gps = GooglePlaySearch::Search.new
 
-# it will return app arrary. default is first page
-# default every page returns 20 apps
+# it will return app arrary.
+# default every page returns 50 apps
 apps = gps.search("bird")
-
-# you can search next page app arrary
-apps = gps.next_page # current page will be change to 2
-
-# current page will be change to 3
-apps = gps.next_page
-
-# you can see current page (return page numer)
-p gps.current_page # 3
 
 # you can see current_page (return page numer)
 p gps.kewyword # "bird"
 
-# if you search another keyword use same instance
-gps.search("tiger") # current page will be change to default 1
-
 ```
 
-###Configuring
+### Configuring
+
 ```ruby
 gps = GooglePlaySearch::Search.new(:language=>"en", :category=>"apps",
                                    :price => 0, :rating => 1)
@@ -52,11 +41,14 @@ gps = GooglePlaySearch::Search.new(:language=>"en", :category=>"apps",
 * `category`: search category. Default:apps. (can be "apps","music","movies","books","magazines").
               some country don't support "music","movies","books","magazines" yet.
 * `price`: app price. Default: "0" - All Price. Can be "1" - Free App. "2" -  need paid App.
-* `rating`: rating search conditions. Default: "0" - All ratings. Can be "1" - "4 stars +" App
+```
 
-###Search Result
+### Search Result
+
 ```ruby
+# default return 50 records
 app_list = gps.search("bird")
+
 app = app_list.first
 
 # android app id (like "com.rovio.angrybirds")
@@ -88,74 +80,8 @@ app.rating
 # type is string
 app.price
 
-# also you can get app version, installs, last updated and other details
-app.get_all_details
-
-# Below are the details of app
-# android app version (like '1.9.5')
-app.version
-
-# android app last updated (like '19 December 2014')
-app.last_updated
-
-# android app installs (like '5,000,000 - 10,000,000')
-app.installs
-
-# android app size (like '15M')
-app.size
-
-# android app require android version (like '2.3 and up')
-app.requires_android
-
-# android app content rating (like 'Everyone')
-app.content_rating
-
-# app category (like 'Arcade')
-app.category
-
-# app developer website
-app.developer_website
-
-# app developer email
-app.developer_email
-
-# app developer address
-app.developer_address
-
-# app screenshots
-app.screenshots
-
-# app long description
-app.long_description
-
-# app reviews (only 40 reviews)
-app.reviews
-#<GooglePlaySearch::Review
-# @author_name="alex persohn",
-# @author_avatar="https://lh6.googleusercontent.com/xxxxxxx/photo.jpg",
-# @review_title="Was really fun, but keeps freezing.",
-# @review_content="This is a really addicting game, but as of late the app keeps freezing. Every three games or so, it will freeze and I have to kill the app via task manager. It's some error in the app fetching the add, which just makes it even more frustrating. Would rate 5 stars if this didn't happen.",
-# @star_rating= 1
-
-# app ratings count
-app.ratings_count
-
-# app 5 star ratings count
-app.count_5_star
-
-# app 4 star ratings count
-app.count_4_star
-
-# app 3 star ratings count
-app.count_3_star
-
-# app 2 star ratings count
-app.count_2_star
-
-# app 1 star ratings count
-app.count_1_star
-
 ```
+
 ### Note
 
 As google play site have access limit. So if you use this gem search app very often.
